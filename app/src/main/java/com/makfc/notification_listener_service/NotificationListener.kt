@@ -92,6 +92,13 @@ class NotificationListener : NotificationListenerService() {
 
     override fun onNotificationRemoved(sbn: StatusBarNotification) {
         Log.d(TAG, "onNotificationRemoved: $sbn")
+        Log.d(TAG, "extras: ${sbn.notification.extras}")
+        if (sbn.packageName != "com.spotify.music") return
+        with(NotificationManagerCompat.from(this)) {
+            // notificationId is a unique int for each notification that you must define
+            cancel(0)
+            Log.d(TAG, "cancel: id:0")
+        }
     }
 
     private fun createNotificationChannel() {
