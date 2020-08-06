@@ -35,9 +35,14 @@ class NotificationListener : NotificationListenerService() {
         Log.d(TAG, "extras template: ${template}")
         Log.d(TAG, "onNotificationPosted: $sbn")
         Log.d(TAG, "tickerText: ${sbn.notification.tickerText}")
-        Log.d(TAG, "extras: ${extras}")
-        Log.d(TAG, "extras android.subText (Title): ${extras.getCharSequence("android.subText")}")
-        Log.d(TAG, "extras android.text (Artist): ${extras.getCharSequence("android.text")}")
+        if (extras != null) {
+            Log.d(TAG, "extras: ${extras}")
+            Log.d(
+                TAG,
+                "extras android.subText (Title): ${extras.getCharSequence("android.subText")}"
+            )
+            Log.d(TAG, "extras android.text (Artist): ${extras.getCharSequence("android.text")}")
+        }
 /*        val token = extras.getParcelable<MediaSession.Token>("android.mediaSession")
         Log.d(TAG, "extras token: ${token}")
         if (token == null) return
@@ -49,7 +54,9 @@ class NotificationListener : NotificationListenerService() {
         Log.d(TAG, "mediaController.extras: ${mediaController.extras}")*/
 
         createNotificationChannel()
-        val query = sbn.notification.tickerText.toString()
+        val query =
+            sbn.notification.tickerText?.toString() ?:
+            extras.getCharSequence("android.title")?.toString()
         val escapedQuery: String = URLEncoder.encode(query, "UTF-8")
         val escapedQuery2: String = URLEncoder.encode("歌詞翻譯 $query", "UTF-8")
         val uri: Uri = Uri.parse("http://www.google.com/#q=$escapedQuery")
@@ -74,7 +81,7 @@ class NotificationListener : NotificationListenerService() {
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher_round)
             .setContentTitle(getString(R.string.google_search))
-            .setContentText(sbn.notification.tickerText)
+            .setContentText(query)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             // Set the intent that will fire when the user taps the notification
             .setContentIntent(pendingIntent)
