@@ -39,9 +39,13 @@ class NotificationListener : NotificationListenerService() {
             Log.d(TAG, "extras: ${extras}")
             Log.d(
                 TAG,
-                "extras android.subText (Title): ${extras.getCharSequence("android.subText")}"
+                "extras android.subText (Title): " +
+                        extras.getCharSequence("android.subText")
             )
-            Log.d(TAG, "extras android.text (Artist): ${extras.getCharSequence("android.text")}")
+            Log.d(
+                TAG, "extras android.text (Artist): " +
+                        extras.getCharSequence("android.text")
+            )
         }
 /*        val token = extras.getParcelable<MediaSession.Token>("android.mediaSession")
         Log.d(TAG, "extras token: ${token}")
@@ -55,8 +59,8 @@ class NotificationListener : NotificationListenerService() {
 
         createNotificationChannel()
         val query =
-            sbn.notification.tickerText?.toString() ?:
-            extras.getCharSequence("android.title")?.toString()
+            sbn.notification.tickerText?.toString() ?: extras.getCharSequence("android.title")
+                ?.toString()
         val escapedQuery: String = URLEncoder.encode(query, "UTF-8")
         val escapedQuery2: String = URLEncoder.encode("歌詞翻譯 $query", "UTF-8")
         val uri: Uri = Uri.parse("http://www.google.com/#q=$escapedQuery")
@@ -73,10 +77,22 @@ class NotificationListener : NotificationListenerService() {
 //            sbn.notification.tickerText
 //        ) // query contains search string
 //        startActivity(intent)
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
-        val pendingIntent2: PendingIntent = PendingIntent.getActivity(this, 0, intent2, 0)
-        val pendingIntent3: PendingIntent = PendingIntent.getActivity(this, 0, intent3, 0)
-        val pendingIntent4: PendingIntent = PendingIntent.getActivity(this, 0, intent4, 0)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(
+            this, 0,
+            intent, 0
+        )
+        val pendingIntent2: PendingIntent = PendingIntent.getActivity(
+            this, 0,
+            intent2, 0
+        )
+        val pendingIntent3: PendingIntent = PendingIntent.getActivity(
+            this, 0,
+            intent3, 0
+        )
+        val pendingIntent4: PendingIntent = PendingIntent.getActivity(
+            this, 0,
+            intent4, 0
+        )
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher_round)
