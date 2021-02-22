@@ -5,7 +5,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.media.session.MediaSession
 import android.net.Uri
 import android.os.Build
 import android.service.notification.NotificationListenerService
@@ -63,9 +62,9 @@ class NotificationListener : NotificationListenerService() {
                 ?.toString()
         val escapedQuery: String = URLEncoder.encode(query, "UTF-8")
         val escapedQuery2: String = URLEncoder.encode("歌詞翻譯 $query", "UTF-8")
-        val uri: Uri = Uri.parse("http://www.google.com/#q=$escapedQuery")
+        val uri: Uri = Uri.parse("http://www.google.com/search?q=$escapedQuery")
         val uri2: Uri = Uri.parse("https://duckduckgo.com/?q=!ducky+$escapedQuery2")
-        val uri3: Uri = Uri.parse("http://www.google.com/#q=$escapedQuery2")
+        val uri3: Uri = Uri.parse("http://www.google.com/search?q=$escapedQuery2")
         val uri4: Uri = Uri.parse("https://genius.com/search?q=$escapedQuery")
         val intent = Intent(Intent.ACTION_VIEW, uri)
         val intent2 = Intent(Intent.ACTION_VIEW, uri2)
