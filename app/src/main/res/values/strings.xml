@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Notification Listener Service</string>
     <string name="service_name">NotificationListenerService</string>
-    <string name="channel_name">Default Channel</string>
-    <string name="channel_description">Default Channel</string>
+    <string name="channel_name">Media Detect Channel</string>
+    <string name="channel_description">Media Detect Channel</string>
+    <string name="channel_name2">Phone Incoming Call Detect Channel</string>
+    <string name="channel_description2">Phone Incoming Call Detect Channel</string>
     <string name="google_search">Google Search</string>
     <string name="lyric_translate_ducky">歌詞翻譯 Ducky</string>
     <string name="genius_search">Genius Search</string>
