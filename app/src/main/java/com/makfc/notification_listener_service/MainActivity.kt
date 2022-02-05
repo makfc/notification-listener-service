@@ -1,7 +1,6 @@
 package com.makfc.notification_listener_service
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
