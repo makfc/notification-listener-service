@@ -40,10 +40,13 @@ class NotificationListener : NotificationListenerService() {
         val template = extras.getCharSequence("android.template")
         val channelId = sbn.notification.channelId
         Log.d(TAG, "channelId: $channelId")
-        if (!template.isNullOrBlank() && listOf(
+        if (!template.isNullOrBlank()
+            && listOf(
                 "com.whatsapp",
                 "org.thoughtcrime.securesms"
             ).contains(sbn.packageName)
+            && !extras.getCharSequence(Notification.EXTRA_TITLE)
+                .isNullOrBlank()
         ) {
             val pm = applicationContext.packageManager
             val applicationInfo: ApplicationInfo? = try {
