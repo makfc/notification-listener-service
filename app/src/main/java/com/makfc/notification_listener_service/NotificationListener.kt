@@ -43,11 +43,16 @@ class NotificationListener : NotificationListenerService() {
         if (!template.isNullOrBlank()
             && listOf(
                 "com.whatsapp",
-                "org.thoughtcrime.securesms"
+                "org.thoughtcrime.securesms",
+                "com.oneplus.mms"
             ).contains(sbn.packageName)
             && !extras.getCharSequence(Notification.EXTRA_TITLE)
                 .isNullOrBlank()
         ) {
+            if ((sbn.notification.flags and Notification.FLAG_GROUP_SUMMARY) != 0) {
+                //Ignore the notification
+                return
+            }
             val pm = applicationContext.packageManager
             val applicationInfo: ApplicationInfo? = try {
                 pm.getApplicationInfo(sbn.packageName, 0)
@@ -63,7 +68,7 @@ class NotificationListener : NotificationListenerService() {
                 extras.getCharSequence(
                     Notification.EXTRA_TEXT
                 )
-            }\nchannelId:${channelId}\ntemplate:${template}"
+            }\nchannelId:${channelId}\ntemplate:${template}\nflags:${sbn.notification.flags}"
             GlobalScope.launch(Dispatchers.IO) {
                 val messageResponse: MessageResponse = PushoverRestClient.pushMessage(
                     PushoverMessage(
